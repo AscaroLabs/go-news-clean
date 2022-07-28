@@ -1,8 +1,8 @@
-package tags
+package access
 
 import "github.com/google/uuid"
 
-type Tag struct {
+type AccessDTO struct {
 	Id   uuid.UUID
-	Name string
+	Role Role
 }

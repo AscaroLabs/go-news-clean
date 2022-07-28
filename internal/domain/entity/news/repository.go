@@ -5,7 +5,8 @@ import (
 )
 
 type NewsRepository interface {
-	GetNews(GetDTO) ([]*News, error)
+	// GetNews получает новости по запросу и id пользователя
+	GetNews(GetDTO, uuid.UUID) ([]*News, error)
 	GetOne(id uuid.UUID) (*News, error)
 	GetOneBySlug(objectSlug string) (*News, error)
 	Create(cdto CreateDTO) error

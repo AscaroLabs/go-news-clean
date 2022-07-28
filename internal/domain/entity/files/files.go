@@ -1,26 +1,22 @@
 package files
 
-type FileDTO struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	Ext        string `json:"ext"`
-	Bytes      []byte `json:"bytes"`
-	DateCreate int64  `json:"date_create"`
-	UserId     string `json:"user_id"`
-	FileSize   int64  `json:"file_size"`
-}
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type File struct {
 	// id файла
-	Id string `json:"id,omitempty"`
+	Id uuid.UUID
 	// Название
-	Name string `json:"name,omitempty"`
+	Name string
 	// Расширение
-	Ext string `json:"ext,omitempty"`
+	Ext string
 	// base64 для файла
-	Base64 string `json:"base64,omitempty"`
+	Base64 string
 	// Дата создания
-	DateCreate int64 `json:"dateCreate,omitempty"`
+	DateCreate time.Time
 	// id пользователя, создавшего файл
-	UserId string `json:"userId,omitempty"`
+	UserId uuid.UUID
 }
