@@ -3,29 +3,32 @@ package news
 import (
 	"go-news-clean/internal/domain/entity/files"
 	"go-news-clean/internal/domain/entity/tags"
+	"time"
+
+	"github.com/google/uuid"
 )
 
 type News struct {
 	// id повости
-	Id string `json:"id,omitempty"`
+	Id uuid.UUID
 	// Название
-	Title string `json:"title,omitempty"`
+	Title string
 	// Автор
-	Author string `json:"author,omitempty"`
+	Author string
 	// Активность (true - активна, false - черновик)
-	Active bool `json:"active,omitempty"`
+	Active bool
 	// Дата начала активности
-	ActiveFrom int64 `json:"activeFrom,omitempty"`
+	ActiveFrom time.Time
 	// Текстовое описание
-	Text string `json:"text,omitempty"`
+	Text string
 	// Текствое описание (для визуального редактора)
-	TextJson string `json:"textJson,omitempty"`
+	TextJson string
 	// Идентификатор пользователя
-	UserId string `json:"userId,omitempty"`
+	UserId uuid.UUID
 	// Список тегов
-	Tags []*tags.Tag `json:"tags,omitempty"`
+	Tags []*tags.Tag
 	// Список прикрепленных файлов
-	FilesInfo []*files.File `json:"filesInfo,omitempty"`
+	FilesInfo []*files.File
 	// Важное
-	IsImportant bool `json:"isImportant,omitempty"`
+	IsImportant bool
 }

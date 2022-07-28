@@ -1,7 +1,8 @@
 package tags
 
-import "context"
+import "github.com/google/uuid"
 
 type TagsRepository interface {
-	GetAll(ctx context.Context) ([]Tag, error)
+	GetAll() ([]Tag, error)
+	GetByNews(news_id uuid.UUID) ([]*Tag, error)
 }
