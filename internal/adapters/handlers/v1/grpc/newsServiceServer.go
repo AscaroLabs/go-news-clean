@@ -28,10 +28,10 @@ import (
 
 type newsServiceServer struct {
 	pb.UnimplementedNewsServiceServer
-	newsService news.NewsService
+	newsService *news.NewsService
 }
 
-func NewNewsServiceServer(ns news.NewsService) *newsServiceServer {
+func NewNewsServiceServer(ns *news.NewsService) *newsServiceServer {
 	return &newsServiceServer{
 		newsService: ns,
 	}

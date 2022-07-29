@@ -12,12 +12,12 @@ import (
 
 type NewsService struct {
 	newsRepository news.NewsRepository
-	tagService     tags.TagService
-	fileService    files.FileService
-	accessService  access.AccessService
+	tagService     *tags.TagService
+	fileService    *files.FileService
+	accessService  *access.AccessService
 }
 
-func NewNewsService(nr news.NewsRepository, ts tags.TagService, as access.AccessService, fs files.FileService) *NewsService {
+func NewNewsService(nr news.NewsRepository, ts *tags.TagService, as *access.AccessService, fs *files.FileService) *NewsService {
 	return &NewsService{
 		newsRepository: nr,
 		tagService:     ts,
