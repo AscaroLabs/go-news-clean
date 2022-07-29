@@ -22,7 +22,7 @@ func NewTagsRepository(db *sqlx.DB) *tagsRepository {
 	}
 }
 
-func (tr *tagsRepository) GetAll() ([]tags.Tag, error) {
+func (tr *tagsRepository) GetAll() ([]*tags.Tag, error) {
 	return nil, nil
 }
 
