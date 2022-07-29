@@ -16,7 +16,7 @@ func NewTagService(tagRepository tags.TagsRepository) *TagService {
 	}
 }
 
-func (ts *TagService) GetAll() ([]tags.Tag, error) {
+func (ts *TagService) GetAll() ([]*tags.Tag, error) {
 	tags_list, err := ts.tagRepository.GetAll()
 	if err != nil {
 		return nil, err
