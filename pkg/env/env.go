@@ -7,7 +7,9 @@ import (
 
 // All variables for project
 var (
+	GrpcHost = Getter("GRPC_HOST", "localhost")
 	GrpcPort = fmt.Sprintf(":%s", Getter("GRPC_PORT", "50051"))
+	HttpHost = Getter("HTTP_HOST", "localhost")
 	Port     = fmt.Sprintf(":%s", Getter("SERVER_PORT", "8080"))
 	// ----------------------------------- DB -----------------------------------
 	Host     = Getter("DB_HOST", "")
@@ -15,6 +17,7 @@ var (
 	User     = Getter("DB_USER", "")
 	Dbname   = Getter("DB_NAME", "")
 	DbPort   = Getter("DB_PORT", "")
+	SslMode  = Getter("DB_SSL_MODE", "")
 
 	// ----------------------------------- S3 -----------------------------------
 	S3Endpoint         = Getter("S3_ENDPOINT", "")

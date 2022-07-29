@@ -17,6 +17,12 @@ type AccessService struct {
 	accessRepository access.AccessRepository
 }
 
+func NewAccessService(accessRepository access.AccessRepository) *AccessService {
+	return &AccessService{
+		accessRepository: accessRepository,
+	}
+}
+
 // CanCreateNews проверяет может ли пользователь создавать новости
 func (as *AccessService) CanCreateNews(adto access.AccessDTO) error {
 	switch adto.Role {

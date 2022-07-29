@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func NewGrpcServer(ns news.NewsService, ts tags.TagService) *grpc.Server {
+func NewGrpcServer(ns *news.NewsService, ts *tags.TagService) *grpc.Server {
 	s := grpc.NewServer()
 	handlers.Register(s, ns, ts)
 	return s

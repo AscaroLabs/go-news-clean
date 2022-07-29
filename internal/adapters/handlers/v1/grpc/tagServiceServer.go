@@ -8,10 +8,10 @@ import (
 
 type tagServiceServer struct {
 	pb.UnimplementedTagServiceServer
-	tagService tags.TagService
+	tagService *tags.TagService
 }
 
-func NewTagServiceServer(ts tags.TagService) *tagServiceServer {
+func NewTagServiceServer(ts *tags.TagService) *tagServiceServer {
 	return &tagServiceServer{
 		tagService: ts,
 	}
