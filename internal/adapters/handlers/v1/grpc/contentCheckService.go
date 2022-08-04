@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 	pb "go-news-clean/internal/proto"
+	"log"
 	"math/rand"
 
 	"google.golang.org/grpc"
@@ -14,6 +15,9 @@ type contentCheckServiceServer struct {
 }
 
 func (*contentCheckServiceServer) CheckHealth(ctx context.Context, r *pb.EmptyRequest) (*pb.HealthResponse, error) {
+
+	log.Printf("[REQ] CheckHealth")
+
 	if service_alive() {
 		_ = grpc.SetHeader(ctx, metadata.Pairs("x-http-code", "200"))
 		return &pb.HealthResponse{

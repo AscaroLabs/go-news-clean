@@ -1,7 +1,6 @@
 package app
 
 import (
-	"fmt"
 	accessRepository "go-news-clean/internal/adapters/postgres/access"
 	filesRepository "go-news-clean/internal/adapters/postgres/files"
 	newsRepository "go-news-clean/internal/adapters/postgres/news"
@@ -22,19 +21,15 @@ type App struct {
 }
 
 func (a *App) Run() error {
-	db, err := client.NewPostgresDB()
-	if err != nil {
-		return err
-	}
-	ts := tags.NewTagService(tagsRepository.NewTagsRepository(db))
-	fs := files.NewFileService(filesRepository.NewFileRepository(db))
-	as := access.NewAccessService(accessRepository.NewAccessRepository(db))
-	ns := news.NewNewsService(newsRepository.NewNewsRepository(db), ts, as, fs)
+	ts := tags.NewTagService(tagsRepository.NewTagsRepository(client.ConnString))
+	fs := files.NewFileService(filesRepository.NewFileRepository(client.ConnString))
+	as := access.NewAccessService(accessRepository.NewAccessRepository(client.ConnString))
+	ns := news.NewNewsService(newsRepository.NewNewsRepository(client.ConnString), ts, as, fs)
 	grpc_server := gateways.NewGrpcServer(ns, ts)
 	go func() {
 		lis, err := net.Listen(
 			"tcp",
-			fmt.Sprintf(":%s", env.GrpcPort),
+			env.GrpcPort,
 		)
 		if err != nil {
 			log.Fatalf("[gRPC] Failed to listen: %v", err)
@@ -47,6 +42,7 @@ func (a *App) Run() error {
 	http_server := gateways.NewHTTPServer()
 	go func() {
 		err := http_server.Run()
+		log.Printf("[HTTP] Server listening at %v", env.Port)
 		if err != nil {
 			log.Fatalf("[HTTP] Failed to run: %v", err)
 		}

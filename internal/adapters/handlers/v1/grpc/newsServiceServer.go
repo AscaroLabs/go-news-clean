@@ -2,6 +2,7 @@ package grpc
 
 import (
 	"context"
+	"log"
 
 	"go-news-clean/internal/domain/entity/files"
 	entity "go-news-clean/internal/domain/entity/news"
@@ -41,19 +42,32 @@ func NewNewsServiceServer(ns *news.NewsService) *newsServiceServer {
 }
 
 func (ns *newsServiceServer) GetNews(ctx context.Context, r *pb.NewsRequestParams) (*pb.NewsList, error) {
+
+	log.Printf("[REQ] Get News")
+
 	gdto, err := r.ToGetDTO()
 	if err != nil {
+
+		log.Printf("[REQ] Error: %v", err)
+
 		return nil, err
 	}
+
+	log.Printf("[REQ] GetDTO created")
+
 	adto, err := auth.GetAccessDTOFromGRPCContext(ctx)
 	if err != nil {
 		return nil, err
 	}
 
+	log.Printf("[REQ] AccessDTO created")
+
 	news_list, err := ns.newsService.GetNews(gdto, adto)
 	if err != nil {
 		return nil, err
 	}
+
+	log.Printf("[REQ] Entities news list created")
 
 	return ConvertEntityNewsListToPBNewsList(news_list), nil
 

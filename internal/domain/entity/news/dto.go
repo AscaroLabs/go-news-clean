@@ -47,8 +47,8 @@ var (
 type SortField string
 
 const (
-	FieldActiveFrom SortField = "active_from"
-	FieldDateCreate SortField = "date_create"
+	FieldActiveFrom SortField = "activeFrom"
+	FieldDateCreate SortField = ""
 )
 
 func SortFieldFromString(s string) (SortField, error) {
@@ -66,9 +66,27 @@ type GetDTO struct {
 	Offset int64
 	Limit  int64
 	Sort   SortField
-	Order  string
+	Order  OrderDTO
 	Query  string
 	Filter FilterDTO
+}
+
+type OrderDTO string
+
+const (
+	OrderAsc  OrderDTO = "asc"
+	OrderDesc OrderDTO = "desc"
+)
+
+func OrderFromString(s string) (OrderDTO, error) {
+	switch s {
+	case "asc":
+		return OrderAsc, nil
+	case "desc":
+		return OrderDesc, nil
+	default:
+		return OrderDTO(""), ErrBadArgument
+	}
 }
 
 type FilterMode string

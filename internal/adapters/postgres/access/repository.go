@@ -4,22 +4,15 @@ import (
 	"go-news-clean/internal/domain/entity/access"
 
 	"github.com/google/uuid"
-	"github.com/jmoiron/sqlx"
 )
 
-// type AccessRepository interface {
-// 	CanEditNews(uuid.UUID, AccessDTO) (bool, error)
-// 	CanDeleteNews(uuid.UUID, AccessDTO) (bool, error)
-// 	CanSeeNews(uuid.UUID, AccessDTO) (bool, error)
-// }
-
 type accessRepository struct {
-	db *sqlx.DB
+	connStr string
 }
 
-func NewAccessRepository(db *sqlx.DB) *accessRepository {
+func NewAccessRepository(connStr string) *accessRepository {
 	return &accessRepository{
-		db: db,
+		connStr: connStr,
 	}
 }
 

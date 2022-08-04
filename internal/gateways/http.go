@@ -2,7 +2,6 @@ package gateways
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -28,17 +27,23 @@ func (s *httpServer) Run() error {
 	pb.RegisterNewsServiceHandlerFromEndpoint(
 		ctx,
 		s.mux,
-		fmt.Sprintf("%s:%s", env.GrpcHost, env.GrpcPort),
+		env.GrpcHost+env.GrpcPort,
 		opts,
 	)
 	pb.RegisterContentCheckServiceHandlerFromEndpoint(
 		ctx,
 		s.mux,
-		fmt.Sprintf("%s:%s", env.GrpcHost, env.GrpcPort),
+		env.GrpcHost+env.GrpcPort,
+		opts,
+	)
+	pb.RegisterTagServiceHandlerFromEndpoint(
+		ctx,
+		s.mux,
+		env.GrpcHost+env.GrpcPort,
 		opts,
 	)
 	if err := http.ListenAndServe(
-		fmt.Sprintf(":%s", env.Port),
+		env.Port,
 		s.mux,
 	); err != nil {
 		return err
